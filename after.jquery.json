@@ -1,0 +1,29 @@
+{
+  "name": "after",
+  "title": "After",
+  "description": "adds support to ie6 & 7 to the :before and :after pseudo selectors with no dependencies or special syntax",
+  "version": "0.1.0",
+  "homepage": "https://github.com/alanclarke/after.js",
+  "author": {
+    "name": "Alan Clarke",
+    "email": "hi@alz.so",
+    "url": "alz.so"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/alanclarke/after.js.git"
+  },
+  "bugs": {
+    "url": "https://github.com/alanclarke/after.js/issues"
+  },
+  "licenses": [
+    {
+      "type": "GPL",
+      "url": "https://github.com/alanclarke/after.js/blob/master/LICENSE-GPL"
+    }
+  ],
+  "dependencies": {
+    "jquery": ">= 1"
+  },
+  "keywords": []
+}
