@@ -50,6 +50,15 @@ function fn_after(getElements) {
       }
     }
 
+
+    //give pictonic class to all icons
+    var els = getElements('.icon-*');
+    for(var i =0;i<els.length;i++){
+      if(!/(^|\s)pictonic(\s|$)/.test(els[i].className)){
+        els[i].className+=' pictonic';
+      }
+    }
+
     //search stylesheets
     for(var i = 0; i < document.styleSheets.length; i++) {
       var cssrules;
