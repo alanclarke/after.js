@@ -2,6 +2,8 @@
 
 adds support to ie6 & 7 to the :before and :after pseudo selectors with no dependencies or special syntax
 
+this branch is specially adapted for use with pictonic, the icon font generator, and also adds the class 'pictonic' to all icons.
+
 ## Getting Started
 Download the [production version][min] or the [development version][max].
 
