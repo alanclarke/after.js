@@ -35,6 +35,8 @@ to rebuild the file from source, navigate to the project root in terminal and ru
 grunt requirejs-concat
 ```
 
+this will appropriately combine the source code in /src and create a concatinated and minified version in /dist
+
 ## License
 Copyright (c) 2012 Alan Clarke  
 Licensed under the GPL license.
