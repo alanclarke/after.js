@@ -238,7 +238,7 @@ function fn_after(getElements) {
         cssrules = [];
       }
 
-      for(var j = 0; j < !cssrules ? 0 : cssrules.length; j++) {
+      for(var j = 0; j < cssrules.length; j++) {
         var rule = cssrules[j],
           els = getElements(rule.selectorText.replace(/:+\w+/gi, ''));
         //before or after rules are unknown in versions of ie that don't support it
