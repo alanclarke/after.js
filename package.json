@@ -8,6 +8,8 @@
     "test": "grunt qunit"
   },
   "devDependencies": {
-    "grunt": "~0.3.11"
+    "grunt": "~0.3.11",
+    "requirejs": "*",
+    "grunt-requirejs-tasks": ">=0.1.0"
   }
 }

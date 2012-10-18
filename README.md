@@ -11,23 +11,24 @@ Download the [production version][min] or the [development version][max].
 In your web page:
 
 ```html
-<script src="jquery.js"></script>
-<script src="dist/after.min.js"></script>
-<script>
-jQuery(function($) {
-  $.awesome(); // "awesome"
-});
-</script>
+<!--[if lt IE 8]><script type="tex/javascript" src="after.min.js"></script><![endif]-->
 ```
 
 ## Documentation
-_(Coming soon)_
+after.js checks if :after is unsupported in the current browser, and if so, it appends a span to every element with a :before or :after css rule, styling it appropriately.
 
-## Examples
-_(Coming soon)_
 
-## Release History
-_(Nothing yet)_
+## Build Dependencies
+- node.js
+- npm
+- phantomjs (only for running qunit tests as part of the build process)
+- 'grunt', 'requirejs' and 'grunt-requirejs-tasks' npm packages. You can install these simply by navigating to the project root folder and typing 'npm install'.
+
+
+## Build
+to rebuild the file from source, navigate to the project root in terminal and run 
+```grunt requirejs-concat' 
+
 
 ## License
 Copyright (c) 2012 Alan Clarke  

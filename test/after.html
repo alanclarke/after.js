@@ -9,12 +9,24 @@
   <link rel="stylesheet" href="../libs/qunit/qunit.css" media="screen">
   <script src="../libs/qunit/qunit.js"></script>
   <!-- Load local lib and tests. -->
+  <script src="../src/getElements.js"></script>
+  <script src="../src/domready/domready.js"></script>
   <script src="../src/after.js"></script>
   <script src="after_test.js"></script>
   <!-- Removing access to jQuery and $. But it'll still be available as _$, if
        you REALLY want to mess around with jQuery in the console. REMEMBER WE
        ARE TESTING YOUR PLUGIN HERE -->
   <script>window._$ = jQuery.noConflict(true);</script>
+  <style type="text/css">
+    #qunit-fixture span:before;
+    {
+      content:'hello';
+      font-size:25px;
+      background:black;
+      color:yellow;
+    }
+
+  </style>
 </head>
 <body>
   <h1 id="qunit-header">After Test Suite</h1>
@@ -23,9 +35,7 @@
   <h2 id="qunit-userAgent"></h2>
   <ol id="qunit-tests"></ol>
   <div id="qunit-fixture">
-    <span>lame test markup</span>
-    <span>normal test markup</span>
-    <span>awesome test markup</span>
+    <span id="after">after:</span>
   </div>
 </body>
 </html>

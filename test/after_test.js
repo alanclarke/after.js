@@ -22,36 +22,22 @@
       raises(block, [expected], [message])
   */
 
-  module('jQuery#awesome', {
+  module('after.js', {
     setup: function() {
       this.elems = $('#qunit-fixture').children();
     }
   });
 
-  test('is chainable', 1, function() {
-    // Not a bad test to run on collection methods.
-    strictEqual(this.elems.awesome(), this.elems, 'should be chaninable');
-  });
+    module(':after', {
+      setup: function() {
+        this.el = $('#after');
+      }
+    });
 
-  test('is awesome', 1, function() {
-    strictEqual(this.elems.awesome().text(), 'awesomeawesomeawesome', 'should be thoroughly awesome');
-  });
-
-  module('jQuery.awesome');
-
-  test('is awesome', 1, function() {
-    strictEqual($.awesome(), 'awesome', 'should be thoroughly awesome');
-  });
-
-  module(':awesome selector', {
-    setup: function() {
-      this.elems = $('#qunit-fixture').children();
-    }
-  });
-
-  test('is awesome', 1, function() {
-    // Use deepEqual & .get() when comparing jQuery objects.
-    deepEqual(this.elems.filter(':awesome').get(), this.elems.last().get(), 'knows awesome when it sees it');
-  });
+    test('check span added after (depending on browser)', 1, function() {
+      // Use deepEqual & .get() when comparing jQuery objects.
+      var unsupported = $.browser.ie && parseFloat($.browser.version) < 8;
+      ok( ( !unsupported || this.el.find('.pseudo-after').length===1) , 'span was added or not added appropriately given the current browser');
+    });
 
 }(jQuery));

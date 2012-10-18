@@ -3,6 +3,7 @@ module.exports = function(grunt) {
 
   // Project configuration.
   grunt.initConfig({
+
     pkg: '<json:after.jquery.json>',
     meta: {
       banner: '/*! <%= pkg.title || pkg.name %> - v<%= pkg.version %> - ' +
@@ -13,7 +14,7 @@ module.exports = function(grunt) {
     },
     concat: {
       dist: {
-        src: ['<banner:meta.banner>', '<file_strip_banner:src/<%= pkg.name %>.js>'],
+        src: ['<file_strip_banner:src/getElements.js>','<file_strip_banner:src/domready/domready.js>', '<file_strip_banner:src/<%= pkg.name %>.js>'],
         dest: 'dist/<%= pkg.name %>.js'
       }
     },
@@ -29,9 +30,22 @@ module.exports = function(grunt) {
     lint: {
       files: ['grunt.js', 'src/**/*.js', 'test/**/*.js']
     },
+    'requirejs-concat': {
+        min:{
+          src: 'src/after.run.js',
+          dest: 'dist/after.min.js'
+        },
+        concat:{
+          src: 'src/after.run.js',
+          dest: 'dist/after.js',
+          opts : { 
+            optimize:'none'
+          }
+        }
+    },
     watch: {
       files: '<config:lint.files>',
-      tasks: 'lint qunit'
+      tasks: 'qunit requirejs-concat'
     },
     jshint: {
       options: {
@@ -53,6 +67,8 @@ module.exports = function(grunt) {
     },
     uglify: {}
   });
+
+  grunt.loadNpmTasks('grunt-requirejs-tasks');
 
   // Default task.
   grunt.registerTask('default', 'lint qunit concat min');
