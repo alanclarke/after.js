@@ -237,7 +237,8 @@ function fn_after(getElements) {
     }
 
     //search stylesheets
-    for(var i = 0; i < document.styleSheets.length; i++) {
+    for( var i = 0; i < document.styleSheets.length; i++ ) {
+      
       var cssrules;
       if(document.styleSheets[i].cssRules) {
         cssrules = document.styleSheets[i].cssRules;
@@ -247,7 +248,7 @@ function fn_after(getElements) {
         cssrules = [];
       }
 
-      for(var j = 0; j < !cssrules ? 0 : cssrules.length; j++) {
+      for( var j = 0; j < cssrules.length; j++ ) {
         var rule = cssrules[j],
           els = getElements(rule.selectorText.replace(/:+\w+/gi, ''));
         //before or after rules are unknown in versions of ie that don't support it
