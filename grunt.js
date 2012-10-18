@@ -33,11 +33,11 @@ module.exports = function(grunt) {
     'requirejs-concat': {
         min:{
           src: 'src/after.run.js',
-          dest: 'dist/after.min.js'
+          dest: 'dist/pictonic.min.js'
         },
         concat:{
           src: 'src/after.run.js',
-          dest: 'dist/after.js',
+          dest: 'dist/pictonic.js',
           opts : { 
             optimize:'none'
           }
