@@ -22,13 +22,18 @@ after.js checks if :after is unsupported in the current browser, and if so, it a
 - node.js
 - npm
 - phantomjs (only for running qunit tests as part of the build process)
-- 'grunt', 'requirejs' and 'grunt-requirejs-tasks' npm packages. You can install these simply by navigating to the project root folder and typing 'npm install'.
+- 'grunt', 'requirejs' and 'grunt-requirejs-tasks' npm packages. You can install these simply by navigating to the project root folder and typing:
 
+```bash
+npm install
+```
 
 ## Build
 to rebuild the file from source, navigate to the project root in terminal and run 
-```grunt requirejs-concat' 
 
+```bash
+grunt requirejs-concat
+```
 
 ## License
 Copyright (c) 2012 Alan Clarke  
