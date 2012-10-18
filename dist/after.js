@@ -171,10 +171,14 @@ if (typeof define === 'function' && define.amd) {
      return store;
  }
 
- if(typeof define === 'function' && define.amd) {
-     // AMD. Register as an anonymous module.
-     define('src/getElements',[],getElements);
- };
+
+
+(function(){
+     if(typeof define === 'function' && define.amd) {
+         // AMD. Register as an anonymous module.
+         define('src/getElements',[],getElements);
+     }
+})();
 /*
  *  after
  *  https://github.com/alanclarke/after.js
@@ -187,82 +191,93 @@ if (typeof define === 'function' && define.amd) {
  *  and refactored to remove jquery dependency
  */
 
-function fn_after(getElements) {
-  
-  return function() {
-    var patterns = {
-      text: /^['"]?(.+?)["']?$/,
-      url: /^url\(["']?(.+?)['"]?\)$/
-    };
+ var after;
 
-    function clean(content) {
-      if(content && content.length) {
-        var text = content.match(patterns.text)[1],
-          url = text.match(patterns.url);
-        return url ? '<img src="' + url[1] + '" />' : text;
-      }
-    }
 
-    function inject(prop, els, rule) {
-      var style = rule.style;
-      for(var i = 0; i < els.length; i++) {
-        var elem = els[i];
-        var pseudoel = getElements('.pseudo-after', els[i]);
-        if(!pseudoel.length) {
-          pseudoel = document.createElement('span');
-          elem.appendChild(pseudoel);
-        }
-        pseudoel.className = 'pseudo-after';
-        pseudoel.innerHTML = clean(rule.style.content);
+ (function(){
 
-        //copy any style information
-        for(var cssprop in style) {
-          if(style[cssprop]) {
-            //only apply supported props
-            try {
-              pseudoel.style[cssprop] = style[cssprop];
-            } catch(e) {}
+    function fn_after(getElements) {
+      
+      return function() {
+        var patterns = {
+          text: /^['"]?(.+?)["']?$/,
+          url: /^url\(["']?(.+?)['"]?\)$/
+        };
+
+        function clean(content) {
+          if(content && content.length) {
+            var text = content.match(patterns.text)[1],
+              url = text.match(patterns.url);
+            return url ? '<img src="' + url[1] + '" />' : text;
           }
         }
-      }
-    }
 
-    //search stylesheets
-    for( var i = 0; i < document.styleSheets.length; i++ ) {
-      
-      var cssrules;
-      if(document.styleSheets[i].cssRules) {
-        cssrules = document.styleSheets[i].cssRules;
-      } else if(document.styleSheets[i].rules) {
-        cssrules = document.styleSheets[i].rules;
-      } else {
-        cssrules = [];
-      }
+        function inject(prop, els, rule) {
+          var style = rule.style;
+          for(var i = 0; i < els.length; i++) {
+            var elem = els[i];
+            var pseudoel = getElements('.pseudo-after', els[i]);
+            if(!pseudoel.length) {
+              pseudoel = document.createElement('span');
+              elem.appendChild(pseudoel);
+            }
+            pseudoel.className = 'pseudo-after';
+            pseudoel.innerHTML = clean(rule.style.content);
 
-      for( var j = 0; j < cssrules.length; j++ ) {
-        var rule = cssrules[j],
-          els = getElements(rule.selectorText.replace(/:+\w+/gi, ''));
-        //before or after rules are unknown in versions of ie that don't support it
-        if(/:+unknown/gi.test(rule.selectorText) && rule.style.content && els.length) {
-          inject('before', els, rule);
+            //copy any style information
+            for(var cssprop in style) {
+              if(style[cssprop]) {
+                //only apply supported props
+                try {
+                  pseudoel.style[cssprop] = style[cssprop];
+                } catch(e) {}
+              }
+            }
+          }
         }
-      }
-    }
-  };
-}
 
-if(typeof define === 'function' && define.amd) {
-  // AMD. Register as an anonymous module.
-  define('src/after',['src/getElements'], fn_after);
-} else if (getElements) {
-    var after = fn_after(getElements);
-};
-/* runs after.js when the dom is ready */
-if(typeof define === 'function' && define.amd) {
-	// AMD. Register as an anonymous module.
-	define('src/after.run.js',['src/domready/domready', 'src/after'], function(domready, after) {
-		return domready(after);
-	});
-} else if(domready && after) {
-	domready(after);
-};
+        //search stylesheets
+        for(var i = 0; i < document.styleSheets.length; i++) {
+          var cssrules;
+          if(document.styleSheets[i].cssRules) {
+            cssrules = document.styleSheets[i].cssRules;
+          } else if(document.styleSheets[i].rules) {
+            cssrules = document.styleSheets[i].rules;
+          } else {
+            cssrules = [];
+          }
+
+          for(var j = 0; j < cssrules.length; j++) {
+            var rule = cssrules[j],
+              els = getElements(rule.selectorText.replace(/:+\w+/gi, ''));
+            //before or after rules are unknown in versions of ie that don't support it
+            if(/:+unknown/gi.test(rule.selectorText) && rule.style.content && els.length) {
+              inject('before', els, rule);
+            }
+          }
+        }
+      };
+    }
+
+    if(typeof define === 'function' && define.amd) {
+      // AMD. Register as an anonymous module.
+      define('src/after',['src/getElements'], fn_after);
+    } else if (getElements) {
+        after = fn_after(getElements);
+    }
+    
+})();
+
+(function(){
+
+	/* runs after.js when the dom is ready */
+	if(typeof define === 'function' && define.amd) {
+		// AMD. Register as an anonymous module.
+		define('src/after.run.js',['src/domready/domready', 'src/after'], function(domready, after) {
+			return domready(after);
+		});
+	} else if(domready && after) {
+		domready(after);
+	}
+
+})();

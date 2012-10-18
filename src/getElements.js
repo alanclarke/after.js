@@ -70,7 +70,11 @@
      return store;
  }
 
- if(typeof define === 'function' && define.amd) {
-     // AMD. Register as an anonymous module.
-     define(getElements);
- }
+
+
+(function(){
+     if(typeof define === 'function' && define.amd) {
+         // AMD. Register as an anonymous module.
+         define(getElements);
+     }
+})();
