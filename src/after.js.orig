@@ -55,6 +55,7 @@
           }
         }
 
+<<<<<<< HEAD
 
     //give pictonic class to all icons
     var els = getElements('.icon-*');
@@ -74,6 +75,18 @@
       } else {
         cssrules = [];
       }
+=======
+        //search stylesheets
+        for(var i = 0; i < document.styleSheets.length; i++) {
+          var cssrules;
+          if(document.styleSheets[i].cssRules) {
+            cssrules = document.styleSheets[i].cssRules;
+          } else if(document.styleSheets[i].rules) {
+            cssrules = document.styleSheets[i].rules;
+          } else {
+            cssrules = [];
+          }
+>>>>>>> master
 
           for(var j = 0; j < cssrules.length; j++) {
             var rule = cssrules[j],
