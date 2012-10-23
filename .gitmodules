@@ -1,3 +1,0 @@
-[submodule "src/domready"]
-	path = src/domready
-	url = git://github.com/alanclarke/domready.git
