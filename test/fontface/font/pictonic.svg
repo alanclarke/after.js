@@ -1,0 +1,30 @@
+<?xml version="1.0" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd" >
+<svg xmlns="http://www.w3.org/2000/svg">
+<metadata>Pictonic fonts by creativesloth ltd.</metadata>
+<defs>
+<font id="pictonic" horiz-adv-x="512" >
+  <font-face 
+    font-family="pictonic"
+    font-weight="400"
+    font-stretch="normal"
+    units-per-em="512"
+    panose-1="2 0 5 9 0 0 0 0 0 0"
+    ascent="409"
+    descent="-103"
+    bbox="0.5 -83.5684 511.5 382.567"
+    underline-thickness="0"
+    underline-position="0"
+    unicode-range="U+E001-E003"
+  />
+    <missing-glyph horiz-adv-x="0"/>
+    <glyph glyph-name="googledrive-02" unicode="&#xe001;" 
+d="M243.186 214.657l-81.5449 -140.386l-83.1377 -143.116l-78.0029 142.661l162.494 279.721zM345.919 74.8018l165.581 0.46582l-83.9824 -144.048l-324.209 -0.0644531l82.6729 143.181zM499.011 96.5645h-165.463l-78.6201 138.306l-79.5518 139.975l160.588 -0.476562z
+M345.919 74.8018l165.581 0.46582h-165.853z" />
+    <glyph glyph-name="dropbox" unicode="&#xe002;" 
+d="M412.522 203.733l98.9775 -84.832l-103.652 -62.1904v0l-49.5215 -29.7158l-101.312 77.7588l-101.344 -77.7588l-48.8506 28.9307v0l-106.32 62.9756l106.858 81.3018l-106.858 81.29l155.17 101.074l101.344 -86.9404l103.677 86.9404l150.81 -96.3555z
+M257.329 291.122l-148.121 -89.4951l146.787 -92.4766l147.705 97.8789zM362.708 12.6982l45.1396 27.082v-24.627l-152.199 -98.7217l-148.828 99.3945v23.2139l44.5127 -26.375l4.95508 -2.92578l4.57324 3.49707l96.1523 73.7793l96.1201 -73.7793l4.60742 -3.52051z" />
+    <glyph glyph-name="googledrive-01" unicode="&#xe003;" 
+d="M335.977 374.366l175.523 -299.098l-83.9688 -144.048l-349.025 -0.0654297l-78.0059 142.662l174.874 301.027zM161.643 74.2832l184.277 0.519531l-90.9795 160.078z" />
+  </font>
+</defs></svg>
