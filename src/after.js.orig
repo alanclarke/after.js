@@ -55,16 +55,30 @@
           }
         }
 
-        //give pictonic class to all icons
-        var els = getElements('.icon-*');
-        for(var i =0;i<els.length;i++){
-          if(!/(^|\s)pictonic(\s|$)/.test(els[i].className)){
-            els[i].className+=' pictonic';
-          }
-        }
+<<<<<<< HEAD
 
+    //give pictonic class to all icons
+    var els = getElements('.icon-*');
+    for(var i =0;i<els.length;i++){
+      if(!/(^|\s)pictonic(\s|$)/.test(els[i].className)){
+        els[i].className+=' pictonic';
+      }
+    }
+
+    //search stylesheets
+    for(var i = 0; i < document.styleSheets.length; i++) {
+      var cssrules;
+      if(document.styleSheets[i].cssRules) {
+        cssrules = document.styleSheets[i].cssRules;
+      } else if(document.styleSheets[i].rules) {
+        cssrules = document.styleSheets[i].rules;
+      } else {
+        cssrules = [];
+      }
+=======
         //search stylesheets
         for(var i = 0; i < document.styleSheets.length; i++) {
+>>>>>>> master
 
           //if it doesn't work, it probably shouldn't
           try{
@@ -78,14 +92,12 @@
             }
 
             for(var j = 0; j < cssrules.length; j++) {
-              try{
-                var rule = cssrules[j],
-                  els = getElements(rule.selectorText.replace(/:+\w+/gi, ''));
-                //before or after rules are unknown in versions of ie that don't support it
-                if(/:+unknown/gi.test(rule.selectorText) && rule.style.content && els.length) {
-                  inject('before', els, rule);
-                }
-              } catch (e){}
+              var rule = cssrules[j],
+                els = getElements(rule.selectorText.replace(/:+\w+/gi, ''));
+              //before or after rules are unknown in versions of ie that don't support it
+              if(/:+unknown/gi.test(rule.selectorText) && rule.style.content && els.length) {
+                inject('before', els, rule);
+              }
             }
           } catch(e){}
         }
