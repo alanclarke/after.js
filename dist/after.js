@@ -238,23 +238,29 @@ if (typeof define === 'function' && define.amd) {
 
         //search stylesheets
         for(var i = 0; i < document.styleSheets.length; i++) {
-          var cssrules;
-          if(document.styleSheets[i].cssRules) {
-            cssrules = document.styleSheets[i].cssRules;
-          } else if(document.styleSheets[i].rules) {
-            cssrules = document.styleSheets[i].rules;
-          } else {
-            cssrules = [];
-          }
 
-          for(var j = 0; j < cssrules.length; j++) {
-            var rule = cssrules[j],
-              els = getElements(rule.selectorText.replace(/:+\w+/gi, ''));
-            //before or after rules are unknown in versions of ie that don't support it
-            if(/:+unknown/gi.test(rule.selectorText) && rule.style.content && els.length) {
-              inject('before', els, rule);
+          //if it doesn't work, it probably shouldn't
+          try{
+            var cssrules;
+            if(document.styleSheets[i].cssRules) {
+              cssrules = document.styleSheets[i].cssRules;
+            } else if(document.styleSheets[i].rules) {
+              cssrules = document.styleSheets[i].rules;
+            } else {
+              cssrules = [];
             }
-          }
+
+            for(var j = 0; j < cssrules.length; j++) {
+              try{
+                var rule = cssrules[j],
+                  els = getElements(rule.selectorText.replace(/:+\w+/gi, ''));
+                //before or after rules are unknown in versions of ie that don't support it
+                if(/:+unknown/gi.test(rule.selectorText) && rule.style.content && els.length) {
+                  inject('before', els, rule);
+                }
+              } catch (e){}
+            }
+          } catch(e){}
         }
       };
     }
