@@ -1,14 +1,26 @@
-
 (function(){
+	afterjs_opts = window.afterjs_opts;
+	if(typeof afterjs_opts!== 'undefined'){
+		if(afterjs_opts.manual_run){
+
+			return;
+		}
+	} else {
+		var afterjs_opts = {};
+	}
 
 	/* runs after.js when the dom is ready */
 	if(typeof define === 'function' && define.amd) {
 		// AMD. Register as an anonymous module.
 		define(['src/domready/domready', 'src/after'], function(domready, after) {
-			return domready(after);
+			return domready(function(){
+				after(afterjs_opts);
+			});
 		});
 	} else if(domready && after) {
-		domready(after);
+		domready(function(){
+			after(afterjs_opts);
+		});
 	}
 
 })();
