@@ -14,12 +14,12 @@
 		// AMD. Register as an anonymous module.
 		define(['src/domready/domready', 'src/after'], function(domready, after) {
 			return domready(function(){
-				after(afterjs_opts);
+				afterjs(afterjs_opts);
 			});
 		});
 	} else if(domready && after) {
 		domready(function(){
-			after(afterjs_opts);
+			afterjs(afterjs_opts);
 		});
 	}
 

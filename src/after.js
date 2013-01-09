@@ -10,10 +10,15 @@
  *  and refactored to remove jquery dependency
  */
 
- var after;
+ var afterjs;
 
 
- (function(){
+if(typeof jQuery === 'undefined')
+{
+  var jQuery = false;
+}
+
+ (function($){
 
     function fn_after(getElements) {
 
@@ -99,8 +104,8 @@
       // AMD. Register as an anonymous module.
       define(['src/getElements'], fn_after);
     } else if (getElements) {
-        after = fn_after(getElements);
+        afterjs = fn_after(getElements);
     }
     
-})();
+})(jQuery);
 
