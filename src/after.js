@@ -10,21 +10,21 @@
  *  and refactored to remove jquery dependency
  */
 
- var afterjs;
+var afterjs;
 
+(function() {
 
-if(typeof jQuery === 'undefined')
-{
-  var jQuery = false;
-}
+  if(typeof jQuery === 'undefined') {
+    var jQuery;
+  }
 
- (function($){
+  (function($) {
 
     function fn_after(getElements) {
 
       return function(opts) {
 
-        getElements = opts.no_jquery?getElements:($ || getElements );
+        getElements = opts.no_jquery ? getElements : ($ || getElements);
 
         var patterns = {
           text: /^['"]?(.+?)["']?$/,
@@ -40,7 +40,7 @@ if(typeof jQuery === 'undefined')
         }
 
         function inject(prop, els, rule) {
-         var style = rule.style;
+          var style = rule.style;
           for(var i = 0; i < els.length; i++) {
             var elem = els[i];
             var pseudoel = getElements('.pseudo-after', els[i]);
@@ -74,7 +74,7 @@ if(typeof jQuery === 'undefined')
         //search stylesheets
         for(var i = 0; i < document.styleSheets.length; i++) {
           //if it doesn't work, it probably shouldn't
-          try{
+          try {
             var cssrules;
             if(document.styleSheets[i].cssRules) {
               cssrules = document.styleSheets[i].cssRules;
@@ -85,22 +85,22 @@ if(typeof jQuery === 'undefined')
             }
 
             for(var j = 0; j < cssrules.length; j++) {
-              try{
-              var rule = cssrules[j],
-                selector = rule.selectorText.replace(/:+\w+/gi, '');
+              try {
+                var rule = cssrules[j],
+                  selector = rule.selectorText.replace(/:+\w+/gi, '');
 
                 //before or after rules are unknown in versions of ie that don't support it
                 if(opts.force || (/:+unknown/gi.test(rule.selectorText))) {
-                  if(rule.style.content){
+                  if(rule.style.content) {
                     var els = getElements(selector.toString());
-                    if(els.length){
+                    if(els.length) {
                       inject('before', els, rule);
                     }
                   }
                 }
-              } catch (e){}
+              } catch(e) {}
             }
-          } catch(e){}
+          } catch(e) {}
         }
 
         return !opts.callback || opts.callback();
@@ -110,9 +110,10 @@ if(typeof jQuery === 'undefined')
     if(typeof define === 'function' && define.amd) {
       // AMD. Register as an anonymous module.
       define(['src/getElements'], fn_after);
-    } else if (getElements) {
-        afterjs = fn_after(getElements);
+    } else if(getElements) {
+      afterjs = fn_after(getElements);
     }
-    
-})(jQuery);
 
+  })(jQuery);
+
+})();
