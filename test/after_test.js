@@ -28,7 +28,7 @@
       raises(block, [expected], [message])
   */
 
-  after({
+  afterjs({
     manual_run:true,
     no_jquery:false,
     force:true,
