@@ -1,7 +1,13 @@
 /*global QUnit:false, module:false, test:false, asyncTest:false, expect:false*/
 /*global start:false, stop:false ok:false, equal:false, notEqual:false, deepEqual:false*/
 /*global notDeepEqual:false, strictEqual:false, notStrictEqual:false, raises:false*/
+
+
+
+
 (function($) {
+
+ $(function(){
 
   /*
     ======== A Handy Little QUnit Reference ========
@@ -22,22 +28,23 @@
       raises(block, [expected], [message])
   */
 
-  module('after.js', {
-    setup: function() {
-      this.elems = $('#qunit-fixture').children();
+  after({
+    manual_run:true,
+    no_jquery:false,
+    force:true,
+    callback: function() {
+      module(':after');
+      var unsupported = true;//$.browser.msie && parseFloat($.browser.version) < 8;
+      test('check span added after (depending on browser)', 1, function() {
+        var $el = $('#after');
+        ok(unsupported||($el.find('.pseudo-after').length === 1), 'span was ' + (unsupported ? 'added' : 'not added'));
+      });
     }
   });
 
-    module(':after', {
-      setup: function() {
-        this.el = $('#after');
-      }
-    });
 
-    test('check span added after (depending on browser)', 1, function() {
-      // Use deepEqual & .get() when comparing jQuery objects.
-      var unsupported = $.browser.ie && parseFloat($.browser.version) < 8;
-      ok( ( !unsupported || this.el.find('.pseudo-after').length===1) , 'span was added or not added appropriately given the current browser');
-    });
+  });
+
+
 
 }(jQuery));

@@ -16,8 +16,11 @@
  (function(){
 
     function fn_after(getElements) {
-      
-      return function() {
+
+      return function(opts) {
+
+        getElements = opts.no_jquery?getElements:($ || getElements );
+
         var patterns = {
           text: /^['"]?(.+?)["']?$/,
           url: /^url\(["']?(.+?)['"]?\)$/
@@ -32,7 +35,7 @@
         }
 
         function inject(prop, els, rule) {
-          var style = rule.style;
+         var style = rule.style;
           for(var i = 0; i < els.length; i++) {
             var elem = els[i];
             var pseudoel = getElements('.pseudo-after', els[i]);
@@ -65,7 +68,6 @@
 
         //search stylesheets
         for(var i = 0; i < document.styleSheets.length; i++) {
-
           //if it doesn't work, it probably shouldn't
           try{
             var cssrules;
@@ -79,16 +81,24 @@
 
             for(var j = 0; j < cssrules.length; j++) {
               try{
-                var rule = cssrules[j],
-                  els = getElements(rule.selectorText.replace(/:+\w+/gi, ''));
+              var rule = cssrules[j],
+                selector = rule.selectorText.replace(/:+\w+/gi, '');
+
                 //before or after rules are unknown in versions of ie that don't support it
-                if(/:+unknown/gi.test(rule.selectorText) && rule.style.content && els.length) {
-                  inject('before', els, rule);
+                if(opts.force || (/:+unknown/gi.test(rule.selectorText))) {
+                  if(rule.style.content){
+                    var els = getElements(selector.toString());
+                    if(els.length){
+                      inject('before', els, rule);
+                    }
+                  }
                 }
               } catch (e){}
             }
           } catch(e){}
         }
+
+        return !opts.callback || opts.callback();
       };
     }
 
@@ -100,3 +110,4 @@
     }
     
 })();
+

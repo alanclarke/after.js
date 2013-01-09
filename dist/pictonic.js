@@ -197,8 +197,11 @@ if (typeof define === 'function' && define.amd) {
  (function(){
 
     function fn_after(getElements) {
-      
-      return function() {
+
+      return function(opts) {
+
+        getElements = opts.no_jquery?getElements:($ || getElements );
+
         var patterns = {
           text: /^['"]?(.+?)["']?$/,
           url: /^url\(["']?(.+?)['"]?\)$/
@@ -213,7 +216,7 @@ if (typeof define === 'function' && define.amd) {
         }
 
         function inject(prop, els, rule) {
-          var style = rule.style;
+         var style = rule.style;
           for(var i = 0; i < els.length; i++) {
             var elem = els[i];
             var pseudoel = getElements('.pseudo-after', els[i]);
@@ -246,7 +249,6 @@ if (typeof define === 'function' && define.amd) {
 
         //search stylesheets
         for(var i = 0; i < document.styleSheets.length; i++) {
-
           //if it doesn't work, it probably shouldn't
           try{
             var cssrules;
@@ -260,16 +262,24 @@ if (typeof define === 'function' && define.amd) {
 
             for(var j = 0; j < cssrules.length; j++) {
               try{
-                var rule = cssrules[j],
-                  els = getElements(rule.selectorText.replace(/:+\w+/gi, ''));
+              var rule = cssrules[j],
+                selector = rule.selectorText.replace(/:+\w+/gi, '');
+
                 //before or after rules are unknown in versions of ie that don't support it
-                if(/:+unknown/gi.test(rule.selectorText) && rule.style.content && els.length) {
-                  inject('before', els, rule);
+                if(opts.force || (/:+unknown/gi.test(rule.selectorText))) {
+                  if(rule.style.content){
+                    var els = getElements(selector.toString());
+                    if(els.length){
+                      inject('before', els, rule);
+                    }
+                  }
                 }
               } catch (e){}
             }
           } catch(e){}
         }
+
+        return !opts.callback || opts.callback();
       };
     }
 
@@ -282,16 +292,30 @@ if (typeof define === 'function' && define.amd) {
     
 })();
 
+
 (function(){
+	afterjs_opts = window.afterjs_opts;
+	if(typeof afterjs_opts!== 'undefined'){
+		if(afterjs_opts.manual_run){
+
+			return;
+		}
+	} else {
+		var afterjs_opts = {};
+	}
 
 	/* runs after.js when the dom is ready */
 	if(typeof define === 'function' && define.amd) {
 		// AMD. Register as an anonymous module.
 		define('src/after.run.js',['src/domready/domready', 'src/after'], function(domready, after) {
-			return domready(after);
+			return domready(function(){
+				after(afterjs_opts);
+			});
 		});
 	} else if(domready && after) {
-		domready(after);
+		domready(function(){
+			after(afterjs_opts);
+		});
 	}
 
 })();
