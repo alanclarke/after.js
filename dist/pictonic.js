@@ -191,10 +191,15 @@ if (typeof define === 'function' && define.amd) {
  *  and refactored to remove jquery dependency
  */
 
- var after;
+ var afterjs;
 
 
- (function(){
+if(typeof jQuery === 'undefined')
+{
+  var jQuery = false;
+}
+
+ (function($){
 
     function fn_after(getElements) {
 
@@ -287,10 +292,10 @@ if (typeof define === 'function' && define.amd) {
       // AMD. Register as an anonymous module.
       define('src/after',['src/getElements'], fn_after);
     } else if (getElements) {
-        after = fn_after(getElements);
+        afterjs = fn_after(getElements);
     }
     
-})();
+})(jQuery);
 
 
 (function(){
@@ -307,14 +312,14 @@ if (typeof define === 'function' && define.amd) {
 	/* runs after.js when the dom is ready */
 	if(typeof define === 'function' && define.amd) {
 		// AMD. Register as an anonymous module.
-		define('src/after.run.js',['src/domready/domready', 'src/after'], function(domready, after) {
+		define('src/after.run.js',['src/domready/domready', 'src/after'], function(domready, afterjs) {
 			return domready(function(){
-				after(afterjs_opts);
+				afterjs(afterjs_opts);
 			});
 		});
-	} else if(domready && after) {
+	} else if(domready && afterjs) {
 		domready(function(){
-			after(afterjs_opts);
+			afterjs(afterjs_opts);
 		});
 	}
 
