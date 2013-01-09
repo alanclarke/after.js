@@ -298,6 +298,7 @@ var afterjs;
   })(jQuery);
 
 })();
+
 (function(){
 	afterjs_opts = window.afterjs_opts;
 	if(typeof afterjs_opts!== 'undefined'){
